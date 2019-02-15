@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="MySqlContext" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+       <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/judge?autoReconnect=true&amp;failOverReadOnly=false&amp;useSSL=false&amp;allowMultiQueries=true&amp;rewriteBatchedStatements=true"
+                        userId="root"
+                        password="123456"></jdbcConnection>
+        <javaModelGenerator targetPackage="cn.liuxingwei.judge.domain"
+                            targetProject="judge/src/main/java">
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="cn.liuxingwei.judge.mapper"
+                         targetProject="judge/src/main/resources"/>
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="cn.liuxingwei.judge.mapper"
+                             targetProject="judge/src/main/java"/>
+        <table tableName="%">
+            <generatedKey column="id" sqlStatement="MySql"/>
+            <domainObjectRenamingRule searchString="^T" replaceString="" />
+        </table>
+    </context>
+</generatorConfiguration>
