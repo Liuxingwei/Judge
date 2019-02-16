@@ -2,6 +2,7 @@ package cn.liuxingwei.judge.controller;
 
 import cn.liuxingwei.judge.domain.User;
 import cn.liuxingwei.judge.mapper.UserMapper;
+import cn.liuxingwei.judge.service.UserServiceInterface;
 import cn.liuxingwei.judge.vo.in.UserIn;
 import cn.liuxingwei.judge.vo.out.UserOut;
 import org.apache.commons.logging.Log;
@@ -33,9 +34,13 @@ public class HomeController {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
+    @Autowired
+    private UserServiceInterface userServiceInterface;
+
     @RequestMapping(method = GET)
     public String[] home() {
         String[] str = {"hello", "byebye"};
+        log.info(userServiceInterface.getClass());
         return str;
     }
 
