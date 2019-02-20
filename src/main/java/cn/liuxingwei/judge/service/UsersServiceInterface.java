@@ -4,7 +4,7 @@ import cn.liuxingwei.judge.vo.in.UserIn;
 import cn.liuxingwei.judge.vo.out.UserOut;
 import org.springframework.session.Session;
 
-public interface UserServiceInterface {
+public interface UsersServiceInterface {
     Boolean signUp(UserIn userIn);
     Boolean signIn(String userId, String password);
     Boolean signOut(Session session);

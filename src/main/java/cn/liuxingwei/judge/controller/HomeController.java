@@ -1,8 +1,8 @@
 package cn.liuxingwei.judge.controller;
 
-import cn.liuxingwei.judge.domain.User;
-import cn.liuxingwei.judge.mapper.UserMapper;
-import cn.liuxingwei.judge.service.UserServiceInterface;
+import cn.liuxingwei.judge.domain.Users;
+import cn.liuxingwei.judge.mapper.UsersMapper;
+import cn.liuxingwei.judge.service.UsersServiceInterface;
 import cn.liuxingwei.judge.vo.in.UserIn;
 import cn.liuxingwei.judge.vo.out.UserOut;
 import org.apache.commons.logging.Log;
@@ -25,7 +25,7 @@ public class HomeController {
     Log log = LogFactory.getLog(HomeController.class);
 
     @Autowired
-    private UserMapper userMapper;
+    private UsersMapper usersMapper;
 
     @Autowired
     private UserOut userOut;
@@ -35,18 +35,18 @@ public class HomeController {
     private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
-    private UserServiceInterface userServiceInterface;
+    private UsersServiceInterface usersServiceInterface;
 
     @RequestMapping(method = GET)
     public String[] home() {
         String[] str = {"hello", "byebye"};
-        log.info(userServiceInterface.getClass());
+        log.info(usersServiceInterface.getClass());
         return str;
     }
 
     @RequestMapping(method = GET, path = "/user")
-    public User user(HttpServletRequest request, @RequestParam("user_id") String userId) {
-        User user = userMapper.selectByPrimaryKey(userId);
+    public Users user(HttpServletRequest request, @RequestParam("user_id") String userId) {
+        Users user = usersMapper.selectByPrimaryKey(userId);
         HttpSession session = request.getSession();
         log.info(session.getClass());
         session.setAttribute("userid", userId);

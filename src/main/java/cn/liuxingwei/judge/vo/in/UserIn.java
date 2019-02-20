@@ -13,4 +13,13 @@ public class UserIn extends BaseIn {
      * 用户昵称
      */
     private String nick;
+
+    /**
+     * email
+     */
+    private String email;
+
+    /**
+     *
+     */
 }

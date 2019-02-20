@@ -1,7 +1,7 @@
-package cn.liuxingwei.judge.service.mybatis;
+package cn.liuxingwei.judge.service.spa;
 
-import cn.liuxingwei.judge.config.MybatisCondition;
-import cn.liuxingwei.judge.service.UserServiceInterface;
+import cn.liuxingwei.judge.config.SpaCondition;
+import cn.liuxingwei.judge.service.UsersServiceInterface;
 import cn.liuxingwei.judge.vo.in.UserIn;
 import cn.liuxingwei.judge.vo.out.UserOut;
 import org.springframework.context.annotation.Conditional;
@@ -9,11 +9,11 @@ import org.springframework.session.Session;
 import org.springframework.stereotype.Service;
 
 @Service
-@Conditional(MybatisCondition.class)
-public class UserServiceMybatisImpl implements UserServiceInterface {
+@Conditional(SpaCondition.class)
+public class UsersServiceSpaImpl implements UsersServiceInterface {
     @Override
     public Boolean signUp(UserIn userIn) {
-        return true;
+        return null;
     }
 
     @Override
