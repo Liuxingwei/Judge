@@ -7,6 +7,6 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 @Scope("prototype")
-public class UserOut<T> extends BaseOut<T> {
+public class UserOut {
 
 }

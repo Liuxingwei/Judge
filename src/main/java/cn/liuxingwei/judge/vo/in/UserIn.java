@@ -10,9 +10,9 @@ public class UserIn extends BaseIn {
     private String userId;
 
     /**
-     * 用户昵称
+     * 签名
      */
-    private String nick;
+    private String sign;
 
     /**
      * email
@@ -20,6 +20,27 @@ public class UserIn extends BaseIn {
     private String email;
 
     /**
-     *
+     * 密码
      */
+    private String password;
+
+    /**
+     * 重复密码
+     */
+    private String rePassword;
+
+    /**
+     * 用户昵称
+     */
+    private String nick;
+
+    /**
+     * 毕业学校
+     */
+    private String school;
+
+    /**
+     * 客户端ip地址
+     */
+    private String ip;
 }

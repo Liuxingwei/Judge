@@ -3,8 +3,10 @@ package cn.liuxingwei.judge.controller;
 import cn.liuxingwei.judge.domain.Users;
 import cn.liuxingwei.judge.mapper.UsersMapper;
 import cn.liuxingwei.judge.service.UsersServiceInterface;
+import cn.liuxingwei.judge.utils.IpUtil;
 import cn.liuxingwei.judge.vo.in.UserIn;
-import cn.liuxingwei.judge.vo.out.UserOut;
+import cn.liuxingwei.judge.vo.out.StandardOut;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +21,16 @@ import javax.servlet.http.HttpSession;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/")
 public class HomeController {
-    Log log = LogFactory.getLog(HomeController.class);
 
     @Autowired
     private UsersMapper usersMapper;
 
     @Autowired
-    private UserOut userOut;
+    private StandardOut standardOut;
 
 
     @Autowired
@@ -40,7 +42,7 @@ public class HomeController {
     @RequestMapping(method = GET)
     public String[] home() {
         String[] str = {"hello", "byebye"};
-        log.info(usersServiceInterface.getClass());
+        log.info(usersServiceInterface.getClass().toString());
         return str;
     }
 
@@ -48,17 +50,16 @@ public class HomeController {
     public Users user(HttpServletRequest request, @RequestParam("user_id") String userId) {
         Users user = usersMapper.selectByPrimaryKey(userId);
         HttpSession session = request.getSession();
-        log.info(session.getClass());
+        log.info(session.getClass().toString());
         session.setAttribute("userid", userId);
         return user;
     }
 
     @RequestMapping(method = POST, path = "/register")
-    public UserOut register(@RequestBody UserIn userIn) {
-        this.userOut.setCode("0");
-        this.userOut.setMessage("success");
-        this.userOut.setData(userIn);
-        return this.userOut;
+    public StandardOut register(HttpServletRequest request, @RequestBody UserIn userIn) {
+        userIn.setIp(IpUtil.getIpAddr(request));
+        standardOut = usersServiceInterface.signUp(userIn);
+        return standardOut;
     }
 
     @RequestMapping(method = GET, path = "/redis")
