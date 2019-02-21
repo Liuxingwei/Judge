@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
+@MapperScan(basePackages = "cn.liuxingwei.judge.mapper")
 public class DataConfiguration {
 
     /**
@@ -65,18 +66,6 @@ public class DataConfiguration {
         dataSource.setUsername(mysqlUsername);
         dataSource.setPassword(mysqlPassword);
         return dataSource;
-    }
-
-    /**
-     * 配置 MyBatis Mapper 自动检测基础包
-     * @auther liuxingwei
-     * @return MapperScannerConfigurer
-     */
-    @Bean
-    public MapperScannerConfigurer mapperScannerConfigurer() {
-        MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
-        mapperScannerConfigurer.setBasePackage("cn.liuxingwei.judge.mapper");
-        return mapperScannerConfigurer;
     }
 
     /**

@@ -1,7 +1,6 @@
 package cn.liuxingwei.judge.mapper;
 
 import cn.liuxingwei.judge.domain.Users;
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
