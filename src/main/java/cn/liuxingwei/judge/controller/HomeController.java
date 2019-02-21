@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
@@ -56,7 +57,7 @@ public class HomeController {
     }
 
     @RequestMapping(method = POST, path = "/register")
-    public StandardOut register(HttpServletRequest request, @RequestBody UserIn userIn) {
+    public StandardOut register(HttpServletRequest request, @Valid @RequestBody UserIn userIn) {
         userIn.setIp(IpUtil.getIpAddr(request));
         standardOut = usersServiceInterface.signUp(userIn);
         return standardOut;
