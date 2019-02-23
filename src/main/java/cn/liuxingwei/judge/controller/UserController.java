@@ -8,10 +8,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -25,10 +27,22 @@ public class UserController {
     @Autowired
     UsersServiceInterface usersServiceInterface;
 
-    @RequestMapping(method = POST, path = "/register")
-    public StandardOut register(HttpServletRequest request, @Valid @RequestBody UserIn userIn) {
+    /**
+     * 用户注册跌幅映射，控制器
+     * @param request
+     * @param userIn
+     * @return
+     */
+    @RequestMapping(method = POST, path = "/singup")
+    public StandardOut signUp(HttpServletRequest request, @Valid @RequestBody UserIn userIn) {
         userIn.setIp(IpUtil.getIpAddr(request));
         standardOut = usersServiceInterface.signUp(userIn);
+        return standardOut;
+    }
+
+    @RequestMapping(method = POST, path = "/signin")
+    public StandardOut signIn(@NotEmpty @RequestParam String userId, @NotEmpty @RequestParam String password) {
+        standardOut = usersServiceInterface.signIn(userId.trim(), password.trim());
         return standardOut;
     }
 }

@@ -34,6 +34,11 @@ public class UsersServiceMybatisImpl implements UsersServiceInterface {
     @Autowired
     private UsersMapper usersMapper;
 
+    /**
+     * 用户注册 service 方法
+     * @param userIn
+     * @return
+     */
     @Override
     public StandardOut signUp(UserIn userIn) {
         standardOut.set(ErrorCode.SUCCESS);
@@ -72,6 +77,11 @@ public class UsersServiceMybatisImpl implements UsersServiceInterface {
         }
     }
 
+    /**
+     * 校验输入的注册用户信息
+     * @param userIn
+     * @return
+     */
     private Boolean checkUserIn(UserIn userIn) {
         Boolean result = false;
         if (userIn.getUserId().length() < 3) {
@@ -100,6 +110,11 @@ public class UsersServiceMybatisImpl implements UsersServiceInterface {
         return result;
     }
 
+    /**
+     * 校验用户ID是否为有效格式
+     * @param userId
+     * @return
+     */
     private Boolean isValidUserId(String userId) {
         String regEx = "[a-zA-Z][a-zA-Z0-9]*";
         Pattern pattern = Pattern.compile(regEx);
@@ -107,6 +122,11 @@ public class UsersServiceMybatisImpl implements UsersServiceInterface {
         return matcher.matches();
     }
 
+    /**
+     * 校验用户是否已存在
+     * @param userId
+     * @return
+     */
     private Boolean checkUserExists(String userId) {
         Users users = usersMapper.selectByPrimaryKey(userId);
         if (null != users) {
@@ -117,6 +137,7 @@ public class UsersServiceMybatisImpl implements UsersServiceInterface {
 
     @Override
     public StandardOut signIn(String userId, String password) {
+//        Users users =
         return null;
     }
 
