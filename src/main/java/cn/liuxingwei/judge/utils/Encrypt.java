@@ -11,15 +11,14 @@ public class Encrypt {
     /**
      * 密码加密
      * @param password 待加密的密码
-     * @param randomString 用于生成 salt 的随机字符串
      * @param md5 是否先用 md5 加密
      * @return 加密后的密码
      */
-    public static String passwordGenerator(String password, String randomString, boolean md5) {
+    public static String passwordGenerator(String password, boolean md5) {
         if (md5) {
             password = DigestUtils.md5Hex(password);
         }
-        String salt = DigestUtils.sha1Hex(randomString).substring(0, 4);
+        String salt = DigestUtils.sha1Hex(UUID.randomUUID().toString()).substring(0, 4);
         String saltString = DigestUtils.sha1Hex(password + salt) + salt;
         String encryPassword = Base64.encodeBase64String(saltString.getBytes());
         return encryPassword;
