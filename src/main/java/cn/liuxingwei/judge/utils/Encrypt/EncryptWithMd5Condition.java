@@ -9,7 +9,7 @@ public class EncryptWithMd5Condition implements Condition {
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
         Environment env = context.getEnvironment();
-        if (env.getProperty("user.password.encrypt.md5").equals("true")) {
+        if (env.getProperty("business.user.password.encrypt.md5").equals("true")) {
             return true;
         }
         return false;
