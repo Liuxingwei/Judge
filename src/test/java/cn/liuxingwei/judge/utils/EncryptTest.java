@@ -23,10 +23,10 @@ public class EncryptTest {
 
     @Test
     public void passwordGenerator() {
-        String randomString = "mbaefaeq";
-        String salt = "abcd";
-        String password = "123456";
-        String twiceSalt = "hello";
+        String randomString = "76807aa0-c784-47ec-a933-de13773098e9";
+        String salt = "95efc77d22669eea6bf39f0e4794608597ee15d4";
+        String password = "e10adc3949ba59abbe56e057f20f883e";
+        String twiceSalt = "0fedb588f5275a2b5b0b3d5c923a9e9b2dcb3d47";
 
         // mock uuid 对象，使其 toString() 方法返回预定义的 randomString 字符串
         UUID uuid = PowerMockito.mock(UUID.class);
@@ -41,12 +41,12 @@ public class EncryptTest {
         PowerMockito.when(DigestUtils.sha1Hex(randomString)).thenReturn(salt);
 
         // 使 mock 的 DigestUtils 类的 sha1Hex() 方法在接收预定义的 密码和 salt 时，返回 预定义的 twiceSalt 字符串
-        PowerMockito.when(DigestUtils.sha1Hex(password + salt)).thenReturn(twiceSalt);
+        PowerMockito.when(DigestUtils.sha1Hex(password + salt.substring(0, 4))).thenReturn(twiceSalt);
 
         // mock Base64 类，使其encodeBase64String() 方法在接收 预定义的串时，返回预定义的加密后密码
         PowerMockito.mockStatic(Base64.class);
         String imencryptpassword = "imencryptpassword";
-        PowerMockito.when(Base64.encodeBase64String((twiceSalt + salt).getBytes())).thenReturn(imencryptpassword);
+        PowerMockito.when(Base64.encodeBase64String((twiceSalt.substring(0, 20) + salt.substring(0, 4)).getBytes())).thenReturn(imencryptpassword);
 
         // 调用加密方法，并验证结果
         EncryptInterface encrypt = new EncryptWithoutMd5();
@@ -56,11 +56,11 @@ public class EncryptTest {
 
     @Test
     public void passwordGeneratorWithMd5() {
-        String randomString = "mbaefaeq";
-        String salt = "abcd";
+        String randomString = "76807aa0-c784-47ec-a933-de13773098e9";
+        String salt = "95efc77d22669eea6bf39f0e4794608597ee15d4";
         String password = "123456";
-        String rePassword = "654321";
-        String twiceSaltMd5 = "hellomd5";
+        String rePassword = "e10adc3949ba59abbe56e057f20f883e";
+        String twiceSaltMd5 = "0fedb588f5275a2b5b0b3d5c923a9e9b2dcb3d47";
 
         // mock uuid 对象，使其 toString() 方法返回预定义的 randomString 字符串
         UUID uuid = PowerMockito.mock(UUID.class);
@@ -78,12 +78,12 @@ public class EncryptTest {
         PowerMockito.when(DigestUtils.md5Hex(password)).thenReturn(rePassword);
 
         // 使 mock 的 DigestUtils 类的 sha1Hex() 方法在接收预定义的 rePassword 和 salt 时，返回 预定义的 twiceSaltMd5 字符串
-        PowerMockito.when(DigestUtils.sha1Hex(rePassword + salt)).thenReturn(twiceSaltMd5);
+        PowerMockito.when(DigestUtils.sha1Hex(rePassword + salt.substring(0, 4))).thenReturn(twiceSaltMd5);
 
         // mock Base64 类，使其encodeBase64String() 方法在接收 预定义的串时，返回预定义的加密后密码
         PowerMockito.mockStatic(Base64.class);
-        String imencryptpassword = "imencryptpasswordwithmd5";
-        PowerMockito.when(Base64.encodeBase64String((twiceSaltMd5 + salt).getBytes())).thenReturn(imencryptpassword);
+        String imencryptpassword = "MGZlZGI1ODhmNTI3NWEyYjViMGI3ZWM4";
+        PowerMockito.when(Base64.encodeBase64String((twiceSaltMd5.substring(0, 20) + salt.substring(0, 4)).getBytes())).thenReturn(imencryptpassword);
 
         // 调用加密方法，并验证结果
         EncryptInterface encrypt = new EncryptWithMd5();

@@ -75,6 +75,9 @@ public class UsersServiceMybatisImpl implements UsersServiceInterface {
         } catch (DuplicateKeyException e) {
             standardOut.set(ErrorCode.SYSTEM_SQL_INSERT_ERROR);
             log.error(e.getLocalizedMessage(), e.fillInStackTrace());
+        } catch (Exception e) {
+            standardOut.set(ErrorCode.SYSTEM_SQL_INSERT_ERROR);
+            log.error(e.getLocalizedMessage(), e.fillInStackTrace());
         } finally {
             return standardOut;
         }

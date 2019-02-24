@@ -18,7 +18,7 @@ public interface EncryptInterface {
         String randomString = uuid.toString();
         String sha1 = DigestUtils.sha1Hex(randomString);
         String salt = sha1.substring(0, 4);
-        String saltString = DigestUtils.sha1Hex(password + salt) + salt;
+        String saltString = DigestUtils.sha1Hex(password + salt).substring(0,20) + salt;
         String encryPassword = Base64.encodeBase64String(saltString.getBytes());
         return encryPassword;
     }
