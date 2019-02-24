@@ -2,12 +2,12 @@ package cn.liuxingwei.judge.utils.Encrypt;
 
 import cn.liuxingwei.judge.utils.EncryptInterface;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.digest.DigestUtils;
-
-import java.util.UUID;
+import org.springframework.context.annotation.Conditional;
+import org.springframework.stereotype.Component;
 
 @Slf4j
+@Component
+@Conditional(EncryptWithoutMd5Condition.class)
 public class EncryptWithoutMd5 implements EncryptInterface {
     /**
      * 密码加密

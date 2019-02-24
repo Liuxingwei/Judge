@@ -6,7 +6,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
-@PropertySource(value = {"file:${root}/conf/${env}/application.properties"})
+@PropertySource(value = {"file:${root}/conf/${env}/application.properties", "file:${root}/conf/${env}/business.properties"})
 
 public class Application {
 
