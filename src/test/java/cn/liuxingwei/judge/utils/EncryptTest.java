@@ -1,5 +1,7 @@
 package cn.liuxingwei.judge.utils;
 
+import cn.liuxingwei.judge.utils.Encrypt.EncryptWithMd5;
+import cn.liuxingwei.judge.utils.Encrypt.EncryptWithoutMd5;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Test;
@@ -16,7 +18,7 @@ import static org.junit.Assert.*;
 
 @Slf4j
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({UUID.class, DigestUtils.class, Encrypt.class, Base64.class})
+@PrepareForTest({UUID.class, DigestUtils.class, EncryptInterface.class, Base64.class})
 public class EncryptTest {
 
     @Test
@@ -47,7 +49,8 @@ public class EncryptTest {
         PowerMockito.when(Base64.encodeBase64String((twiceSalt + salt).getBytes())).thenReturn(imencryptpassword);
 
         // 调用加密方法，并验证结果
-        String encryptPassword = Encrypt.passwordGenerator(password, false);
+        EncryptInterface encrypt = new EncryptWithoutMd5();
+        String encryptPassword = encrypt.passwordGenerator(password);
         assertEquals(imencryptpassword, encryptPassword);
     }
 
@@ -83,7 +86,8 @@ public class EncryptTest {
         PowerMockito.when(Base64.encodeBase64String((twiceSaltMd5 + salt).getBytes())).thenReturn(imencryptpassword);
 
         // 调用加密方法，并验证结果
-        String encryptPassword = Encrypt.passwordGenerator("123456", true);
+        EncryptInterface encrypt = new EncryptWithMd5();
+        String encryptPassword = encrypt.passwordGenerator("123456", true);
         assertEquals(imencryptpassword, encryptPassword);
     }
 }

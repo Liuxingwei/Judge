@@ -4,6 +4,7 @@ import cn.liuxingwei.judge.constant.ErrorCode;
 import cn.liuxingwei.judge.domain.Users;
 import cn.liuxingwei.judge.mapper.UsersMapper;
 import cn.liuxingwei.judge.service.UsersServiceInterface;
+import cn.liuxingwei.judge.utils.EncryptInterface;
 import cn.liuxingwei.judge.vo.in.UserIn;
 import cn.liuxingwei.judge.vo.out.StandardOut;
 import lombok.Data;
@@ -33,6 +34,9 @@ public class UsersServiceMybatisImpl implements UsersServiceInterface {
     @Autowired
     private UsersMapper usersMapper;
 
+    @Autowired
+    private EncryptInterface encrypt;
+
     /**
      * 用户注册 service 方法
      * @param userIn
@@ -57,7 +61,7 @@ public class UsersServiceMybatisImpl implements UsersServiceInterface {
         users.setAccesstime(now);
         users.setVolume(1);
         users.setLanguage(1);
-        users.setPassword(userIn.getPassword());
+        users.setPassword(encrypt.passwordGenerator(userIn.getPassword()));
         users.setRegTime(now);
         users.setNick(userIn.getNick());
         users.setSchool(userIn.getSchool());

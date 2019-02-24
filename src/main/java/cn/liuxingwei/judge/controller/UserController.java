@@ -33,7 +33,7 @@ public class UserController {
      * @param userIn
      * @return
      */
-    @RequestMapping(method = POST, path = "/singup")
+    @RequestMapping(method = POST, path = "/signup")
     public StandardOut signUp(HttpServletRequest request, @Valid @RequestBody UserIn userIn) {
         userIn.setIp(IpUtil.getIpAddr(request));
         standardOut = usersServiceInterface.signUp(userIn);
