@@ -1,6 +1,5 @@
 package cn.liuxingwei.judge.service.mybatis;
 
-import cn.liuxingwei.judge.config.MybatisCondition;
 import cn.liuxingwei.judge.constant.ErrorCode;
 import cn.liuxingwei.judge.domain.Users;
 import cn.liuxingwei.judge.mapper.UsersMapper;

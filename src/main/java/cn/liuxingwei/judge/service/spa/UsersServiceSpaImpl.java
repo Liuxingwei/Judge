@@ -1,6 +1,5 @@
 package cn.liuxingwei.judge.service.spa;
 
-import cn.liuxingwei.judge.config.SpaCondition;
 import cn.liuxingwei.judge.service.UsersServiceInterface;
 import cn.liuxingwei.judge.vo.in.UserIn;
 import cn.liuxingwei.judge.vo.out.StandardOut;

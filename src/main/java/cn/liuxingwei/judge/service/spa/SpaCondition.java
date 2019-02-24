@@ -1,4 +1,4 @@
-package cn.liuxingwei.judge.config;
+package cn.liuxingwei.judge.service.spa;
 
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
