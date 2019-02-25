@@ -1,11 +1,13 @@
 package cn.liuxingwei.judge.utils;
 
+import org.springframework.stereotype.Component;
+
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 
+@Component
 public class IpUtil {
-    public static String getIpAddr(HttpServletRequest request) {
+    public String getIpAddr(HttpServletRequest request) {
         String ipAddress = null;
         try {
             ipAddress = request.getHeader("x-forwarded-for");

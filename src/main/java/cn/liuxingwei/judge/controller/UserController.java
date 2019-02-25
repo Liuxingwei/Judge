@@ -27,6 +27,9 @@ public class UserController {
     @Autowired
     private UsersServiceInterface usersServiceInterface;
 
+    @Autowired
+    private IpUtil ipUtil;
+
     /**
      * 用户注册跌幅映射，控制器
      * @param request
@@ -35,7 +38,7 @@ public class UserController {
      */
     @RequestMapping(method = POST, path = "/signup")
     public StandardOut signUp(HttpServletRequest request, @Valid @RequestBody UserIn userIn) {
-        userIn.setIp(IpUtil.getIpAddr(request));
+        userIn.setIp(ipUtil.getIpAddr(request));
         standardOut = usersServiceInterface.signUp(userIn);
         return standardOut;
     }

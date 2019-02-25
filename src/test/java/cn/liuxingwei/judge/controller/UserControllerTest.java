@@ -30,13 +30,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.junit.Assert.*;
 
-@RunWith(PowerMockRunner.class)
-@PowerMockRunnerDelegate(SpringRunner.class)
+@RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
-@PrepareForTest({UserController.class, IpUtil.class})
 public class UserControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -46,6 +43,9 @@ public class UserControllerTest {
 
     @MockBean
     private StandardOut standard;
+
+    @MockBean
+    private IpUtil ipUtil;
 
     @Before
     public void setUp() throws Exception {
@@ -57,8 +57,7 @@ public class UserControllerTest {
 
     @Test
     public void signUp() throws Exception {
-        PowerMockito.mockStatic(IpUtil.class);
-        PowerMockito.when(IpUtil.getIpAddr(Mockito.argThat(new ArgumentMatcher<HttpServletRequest>() {
+        Mockito.when(ipUtil.getIpAddr(Mockito.argThat(new ArgumentMatcher<HttpServletRequest>() {
             @Override
             public boolean matches(HttpServletRequest argument) {
                 return true;
