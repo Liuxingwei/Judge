@@ -174,7 +174,7 @@ public class UsersServiceMybatisImplTest {
         assertEquals(expectResult, result);
     }
     @Test
-    public void signUp() throws Exception{
+    public void signUp(){
         Date date = (new GregorianCalendar(2018, 11, 9)).getTime();
         Mockito.when(dateUtils.generateDate()).thenReturn(date);
         userIn.setUserId("admin123");
