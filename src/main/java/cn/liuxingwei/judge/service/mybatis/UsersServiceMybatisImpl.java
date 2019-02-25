@@ -99,7 +99,7 @@ public class UsersServiceMybatisImpl implements UsersServiceInterface {
             standardOut.set(ErrorCode.USER_PASSWORD_IS_NOT_SAME);
         } else if (userIn.getPassword().length() < 6) {
             standardOut.set(ErrorCode.USER_PASSWORD_TOO_SHORT);
-        } else if (userIn.getPassword().length() > 32) {
+        } else if (userIn.getPassword().length() > 16) {
             standardOut.set(ErrorCode.USER_PASSWORD_TOO_LONG);
         } else if (userIn.getSchool().length() > 100) {
             standardOut.set(ErrorCode.USER_SCHOOL_TOO_LONG);

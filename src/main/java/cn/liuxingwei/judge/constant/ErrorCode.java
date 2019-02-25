@@ -20,7 +20,7 @@ public enum ErrorCode {
 
     USER_PASSWORD_TOO_SHORT("100006", "密码太短（要求 6 字符以上）"),
 
-    USER_PASSWORD_TOO_LONG("100007", "密码太长（要求 32 字符以下）"),
+    USER_PASSWORD_TOO_LONG("100007", "密码太长（要求 16 字符以下）"),
 
     USER_SCHOOL_TOO_LONG("100008", "学校名称太长（要求 100 字符以下）"),
 
