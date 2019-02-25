@@ -175,8 +175,6 @@ public class UsersServiceMybatisImplTest {
         Date date = new Date();
         PowerMockito.mock(Date.class);
         PowerMockito.whenNew(Date.class).withNoArguments().thenReturn(date);
-        Date date1 = new Date();
-        assertSame(date, date1);
         userIn.setUserId("admin123");
         userIn.setSign("盘古氏");
         userIn.setEmail("pangu@gushen.com");

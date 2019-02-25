@@ -22,10 +22,13 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    StandardOut standardOut;
+    private StandardOut standardOut;
 
     @Autowired
-    UsersServiceInterface usersServiceInterface;
+    private UsersServiceInterface usersServiceInterface;
+
+    @Autowired
+    private IpUtil ipUtil;
 
     /**
      * 用户注册跌幅映射，控制器
@@ -35,7 +38,7 @@ public class UserController {
      */
     @RequestMapping(method = POST, path = "/signup")
     public StandardOut signUp(HttpServletRequest request, @Valid @RequestBody UserIn userIn) {
-        userIn.setIp(IpUtil.getIpAddr(request));
+        userIn.setIp(ipUtil.getIpAddr(request));
         standardOut = usersServiceInterface.signUp(userIn);
         return standardOut;
     }
