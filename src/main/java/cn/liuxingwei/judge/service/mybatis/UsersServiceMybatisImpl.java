@@ -4,6 +4,7 @@ import cn.liuxingwei.judge.constant.ErrorCode;
 import cn.liuxingwei.judge.domain.Users;
 import cn.liuxingwei.judge.mapper.UsersMapper;
 import cn.liuxingwei.judge.service.UsersServiceInterface;
+import cn.liuxingwei.judge.utils.DateUtils;
 import cn.liuxingwei.judge.utils.EncryptInterface;
 import cn.liuxingwei.judge.vo.in.UserIn;
 import cn.liuxingwei.judge.vo.out.StandardOut;
@@ -37,6 +38,9 @@ public class UsersServiceMybatisImpl implements UsersServiceInterface {
     @Autowired
     private EncryptInterface encrypt;
 
+    @Autowired
+    private DateUtils dateUtils;
+
     /**
      * 用户注册 service 方法
      * @param userIn
@@ -48,7 +52,7 @@ public class UsersServiceMybatisImpl implements UsersServiceInterface {
         if (!checkUserIn(userIn)) {
             return standardOut;
         }
-        Date now = new Date();
+        Date now = dateUtils.generateDate();
         users.setUserId(userIn.getUserId());
         users.setSign(userIn.getSign());
         users.setEmail(userIn.getEmail());

@@ -3,6 +3,7 @@ package cn.liuxingwei.judge.service.mybatis;
 import cn.liuxingwei.judge.constant.ErrorCode;
 import cn.liuxingwei.judge.domain.Users;
 import cn.liuxingwei.judge.mapper.UsersMapper;
+import cn.liuxingwei.judge.utils.DateUtils;
 import cn.liuxingwei.judge.utils.EncryptInterface;
 import cn.liuxingwei.judge.vo.in.UserIn;
 import cn.liuxingwei.judge.vo.out.StandardOut;
@@ -23,14 +24,13 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static org.junit.Assert.*;
 
-@RunWith(PowerMockRunner.class)
-@PowerMockRunnerDelegate(SpringRunner.class)
-@PowerMockIgnore({"javax.management.*", "javax.net.ssl.*"})
-@PrepareForTest({UsersServiceMybatisImpl.class, Date.class})
+@RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
 //@Rollback(false)
@@ -41,6 +41,9 @@ public class UsersServiceMybatisImplTest {
 
     @MockBean
     private EncryptInterface encryptInterface;
+
+    @MockBean
+    private DateUtils dateUtils;
 
     @Autowired
     private UsersMapper usersMapper;
@@ -172,9 +175,8 @@ public class UsersServiceMybatisImplTest {
     }
     @Test
     public void signUp() throws Exception{
-        Date date = new Date();
-        PowerMockito.mock(Date.class);
-        PowerMockito.whenNew(Date.class).withNoArguments().thenReturn(date);
+        Date date = (new GregorianCalendar(2018, 11, 9)).getTime();
+        Mockito.when(dateUtils.generateDate()).thenReturn(date);
         userIn.setUserId("admin123");
         userIn.setSign("盘古氏");
         userIn.setEmail("pangu@gushen.com");
