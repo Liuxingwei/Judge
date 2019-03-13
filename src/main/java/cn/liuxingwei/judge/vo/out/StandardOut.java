@@ -22,13 +22,22 @@ public class StandardOut<T>{
      */
     private T data;
 
+    /**
+     * 仅设置返回码和消息，data设置为null
+     * @param errorCode
+     */
     public void set(ErrorCode errorCode) {
-        setCode(errorCode.getCode());
-        setMessage(errorCode.getMessage());
+        set(errorCode, null);
     }
 
+    /**
+     * 设置返回码和消息
+     * @param errorCode
+     * @param data
+     */
     public void set(ErrorCode errorCode, T data) {
-        set(errorCode);
+        setCode(errorCode.getCode());
+        setMessage(errorCode.getMessage());
         setData(data);
     }
 }
