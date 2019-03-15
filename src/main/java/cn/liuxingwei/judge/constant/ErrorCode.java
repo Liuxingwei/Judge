@@ -26,7 +26,11 @@ public enum ErrorCode {
 
     USER_EMAIL_TOO_LONG("10000009", "邮箱太长"),
 
-    USER_ALREADY_EXISTS("10000010", "用户已存在");
+    USER_ALREADY_EXISTS("10000010", "用户已存在"),
+
+    USER_NOT_EXISTS("10000011", "用户不存在"),
+
+    USER_PASSWORD_INVALID("100000012", "用户密码不正确");
 
 
     private String code;

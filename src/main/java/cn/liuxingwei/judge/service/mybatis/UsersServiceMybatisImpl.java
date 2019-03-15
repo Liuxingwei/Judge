@@ -144,8 +144,15 @@ public class UsersServiceMybatisImpl implements UsersServiceInterface {
 
     @Override
     public StandardOut signIn(String userId, String password) {
-//        Users users =
-        return null;
+        standardOut.set(ErrorCode.SUCCESS);
+        Users users = usersMapper.selectByPrimaryKey(userId);
+        if (null == users) {
+            standardOut.set(ErrorCode.USER_NOT_EXISTS);
+        } else if (! checkUserPassword(users.getPassword(), password)) {
+            standardOut.set(ErrorCode.USER_NOT_EXISTS);
+        }
+
+        return standardOut;
     }
 
     @Override
@@ -171,5 +178,15 @@ public class UsersServiceMybatisImpl implements UsersServiceInterface {
     @Override
     public StandardOut checkUserSignIn(Session session) {
         return null;
+    }
+
+    /**
+     * 验证密码是否与数据库中的密码一致
+     * @param storedPassword 存储在数据库中的密码
+     * @param password 要验证的密码
+     * @return
+     */
+    private Boolean checkUserPassword(String storedPassword, String password) {
+        return false;
     }
 }
