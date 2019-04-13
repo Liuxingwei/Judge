@@ -45,7 +45,7 @@ public class UsersServiceMybatisImplTest {
 
     @Before
     public void setUp() throws Exception {
-       userIn = new UserIn();
+        userIn = new UserIn();
         Mockito.when(encryptInterface.passwordGenerator("hello123")).thenReturn("abcdefghijklmn");
     }
 
