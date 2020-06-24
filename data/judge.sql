@@ -969,21 +969,21 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `user_id` varchar(48) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `sign` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '签名',
+  `sign` text COLLATE utf8mb4_unicode_ci NULL COMMENT '签名',
   `email` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_exp` int(11) DEFAULT '0' COMMENT '积分',
   `submit` int(11) DEFAULT '0' COMMENT '提交的答案',
   `solved` int(11) DEFAULT '0' COMMENT '正确的答案',
   `blog_cnt` int(11) DEFAULT '0',
   `defunct` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'N',
-  `ip` varchar(46) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `ip` varchar(46) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `accesstime` datetime DEFAULT NULL,
   `volume` int(11) NOT NULL DEFAULT '1',
   `language` int(11) NOT NULL DEFAULT '1',
   `password` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `reg_time` datetime DEFAULT NULL,
-  `nick` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `school` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `nick` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `school` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
