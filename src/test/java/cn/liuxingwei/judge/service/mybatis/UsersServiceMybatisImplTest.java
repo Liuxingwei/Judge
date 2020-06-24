@@ -159,8 +159,8 @@ public class UsersServiceMybatisImplTest {
         userIn.setNick("悟空");
         userIn.setPassword("helloworld");
         userIn.setRePassword("helloworld");
-        userIn.setSchool("dyq0k9kxprkasyzz3n7ldyz14wpgofusrqwv6dwf1o12ehlfvnfnoohowdeea7c7tb4z3gu99n3ie9sqv96nj7z8ov66936io350");
-        userIn.setEmail("dyq0k9kxprkasyzz3n7ldyz14wpgofusrqwv6dwf1o12ehlfvnfnoohowdeea7c7tb4z3gu99n3ie9sqv96nj@z8ov66936i.net");
+        userIn.setSchool("dyq");
+        userIn.setEmail("dyq@z8ov66936i.net");
         StandardOut result = usersServiceMybatis.signUp(userIn);
         StandardOut expectResult = new StandardOut();
         expectResult.set(ErrorCode.USER_ALREADY_EXISTS);
