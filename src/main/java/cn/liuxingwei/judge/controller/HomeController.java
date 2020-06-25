@@ -15,39 +15,10 @@ import javax.servlet.http.HttpSession;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @Slf4j
-@RestController
 @RequestMapping("/")
 public class HomeController {
-
-    @Autowired
-    private UsersMapper usersMapper;
-
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
-
     @RequestMapping(method = GET)
-    public String[] home() {
-        String[] str = {"hello", "byebye"};
-        return str;
-    }
-
-    @RequestMapping(method = GET, path = "/user")
-    public Users user(HttpServletRequest request, @RequestParam("user_id") String userId) {
-        Users user = usersMapper.selectByPrimaryKey(userId);
-        HttpSession session = request.getSession();
-        log.info(session.getClass().toString());
-        session.setAttribute("userid", userId);
-        return user;
-    }
-
-    @RequestMapping(method = GET, path = "/redis")
-    public String redis() {
-        if (stringRedisTemplate.hasKey("shabao")) {
-            stringRedisTemplate.delete("shabao");
-            return "key already exists";
-        } else {
-            stringRedisTemplate.opsForValue().set("shabao", "中文");
-            return "key save success";
-        }
+    public String home() {
+        return "index";
     }
 }
