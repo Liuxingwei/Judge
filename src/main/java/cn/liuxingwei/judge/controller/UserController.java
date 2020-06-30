@@ -21,30 +21,41 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    @Autowired
-    private StandardOut standardOut;
+
+    private StandardOut<?> standardOut;
+
+    final private UsersServiceInterface usersServiceInterface;
+
+    final private IpUtil ipUtil;
 
     @Autowired
-    private UsersServiceInterface usersServiceInterface;
-
-    @Autowired
-    private IpUtil ipUtil;
+    public UserController(StandardOut<?> standardOut, UsersServiceInterface usersServiceInterface, IpUtil ipUtil) {
+        this.standardOut = standardOut;
+        this.usersServiceInterface = usersServiceInterface;
+        this.ipUtil = ipUtil;
+    }
 
     /**
-     * 用户注册跌幅映射，控制器
-     * @param request
-     * @param userIn
-     * @return
+     * 用户注册
+     * @param request HttpServletRequest
+     * @param userIn UserIn
+     * @return StandardOut
      */
     @RequestMapping(method = POST, path = "/signup")
-    public StandardOut signUp(HttpServletRequest request, @Valid @RequestBody UserIn userIn) {
+    public StandardOut<?> signUp(HttpServletRequest request, @Valid @RequestBody UserIn userIn) {
         userIn.setIp(ipUtil.getIpAddr(request));
         standardOut = usersServiceInterface.signUp(userIn);
         return standardOut;
     }
 
+    /**
+     * 用户登录
+     * @param userId 用户Id
+     * @param password 密码
+     * @return StandardOut
+     */
     @RequestMapping(method = POST, path = "/signin")
-    public StandardOut signIn(@NotEmpty @RequestParam String userId, @NotEmpty @RequestParam String password) {
+    public StandardOut<?> signIn(@NotEmpty @RequestParam String userId, @NotEmpty @RequestParam String password) {
         standardOut = usersServiceInterface.signIn(userId.trim(), password.trim());
         return standardOut;
     }

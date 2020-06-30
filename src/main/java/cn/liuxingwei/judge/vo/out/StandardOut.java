@@ -24,7 +24,7 @@ public class StandardOut<T>{
 
     /**
      * 仅设置返回码和消息，data设置为null
-     * @param errorCode
+     * @param errorCode 返回码
      */
     public void set(ErrorCode errorCode) {
         set(errorCode, null);
@@ -32,8 +32,8 @@ public class StandardOut<T>{
 
     /**
      * 设置返回码和消息
-     * @param errorCode
-     * @param data
+     * @param errorCode 返回码
+     * @param data 消息
      */
     public void set(ErrorCode errorCode, T data) {
         setCode(errorCode.getCode());

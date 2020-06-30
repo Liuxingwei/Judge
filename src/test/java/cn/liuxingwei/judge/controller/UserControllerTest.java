@@ -33,7 +33,7 @@ public class UserControllerTest {
     private UsersServiceInterface usersServiceInterface;
 
     @MockBean
-    private StandardOut standard;
+    private StandardOut<?> standard;
 
     @MockBean
     private IpUtil ipUtil;
@@ -54,7 +54,7 @@ public class UserControllerTest {
                 return true;
             }
         }))).thenReturn("202.211.72.90");
-        StandardOut standardOut = new StandardOut();
+        StandardOut<?> standardOut = new StandardOut<String>();
         standardOut.set(ErrorCode.SUCCESS);
         Mockito.when(usersServiceInterface.signUp(Mockito.argThat(new ArgumentMatcher<UserIn>() {
             @Override
