@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatcher;
-import org.mockito.Mockito;
+import static org.mockito.Mockito.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -48,7 +48,7 @@ public class UserControllerTest {
 
     @Test
     public void signUp() throws Exception {
-        Mockito.when(ipUtil.getIpAddr(Mockito.argThat(new ArgumentMatcher<HttpServletRequest>() {
+        when(ipUtil.getIpAddr(argThat(new ArgumentMatcher<HttpServletRequest>() {
             @Override
             public boolean matches(HttpServletRequest argument) {
                 return true;
@@ -56,7 +56,7 @@ public class UserControllerTest {
         }))).thenReturn("202.211.72.90");
         StandardOut<?> standardOut = new StandardOut<String>();
         standardOut.set(ErrorCode.SUCCESS);
-        Mockito.when(usersServiceInterface.signUp(Mockito.argThat(new ArgumentMatcher<UserIn>() {
+        when(usersServiceInterface.signUp(argThat(new ArgumentMatcher<UserIn>() {
             @Override
             public boolean matches(UserIn argument) {
                 return argument.getUserId().equals("manageliu") && argument.getIp().equals("202.211.72.90");
@@ -67,7 +67,6 @@ public class UserControllerTest {
                 .andExpect(jsonPath("code").value("0"))
                 .andExpect(jsonPath("message").value("success"))
                 .andExpect(jsonPath("data").doesNotExist());
-
     }
 
     @Test

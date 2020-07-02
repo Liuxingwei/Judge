@@ -19,29 +19,23 @@ public class IpUtil {
             }
             if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
                 ipAddress = request.getRemoteAddr();
+                // 如果得到的地址是本机的loop地址，则根据网卡配置取本机配置的IP
                 if (ipAddress.equals("127.0.0.1") || ipAddress.equals("0:0:0:0:0:0:0:1")) {
-                    // 根据网卡取本机配置的IP
-                    InetAddress inet = null;
                     try {
-                        inet = InetAddress.getLocalHost();
+                        InetAddress inet = InetAddress.getLocalHost();
+                        ipAddress = inet.getHostAddress();
                     } catch (java.net.UnknownHostException e) {
                         e.printStackTrace();
                     }
-                    ipAddress = inet.getHostAddress();
                 }
             }
             // 对于通过多个代理的情况，第一个IP为客户端真实IP,多个IP按照','分割
-            if (ipAddress != null && ipAddress.length() > 15) { // "***.***.***.***".length()
-                // = 15
-                if (ipAddress.indexOf(",") > 0) {
-                    ipAddress = ipAddress.substring(0, ipAddress.indexOf(","));
-                }
+            if (ipAddress != null && ipAddress.length() > 15 && ipAddress.indexOf(",") > 0) {
+                ipAddress = ipAddress.substring(0, ipAddress.indexOf(","));
             }
         } catch (Exception e) {
-            ipAddress="";
+            ipAddress = "";
         }
-        // ipAddress = this.getRequest().getRemoteAddr();
-
         return ipAddress;
     }
 }
