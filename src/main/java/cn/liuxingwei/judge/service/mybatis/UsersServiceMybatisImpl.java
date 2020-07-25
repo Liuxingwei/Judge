@@ -26,28 +26,32 @@ import java.util.regex.Pattern;
 @Conditional(MybatisCondition.class)
 public class UsersServiceMybatisImpl implements UsersServiceInterface {
 
-    @Autowired
     private Users users;
 
-    @Autowired
-    private StandardOut standardOut;
+    private StandardOut<?> standardOut;
 
-    @Autowired
     private UsersMapper usersMapper;
 
-    @Autowired
     private EncryptInterface encrypt;
 
-    @Autowired
     private DateUtils dateUtils;
+
+    @Autowired
+    public UsersServiceMybatisImpl(Users users, StandardOut<?> standardOut, UsersMapper usersMapper, EncryptInterface encrypt, DateUtils dateUtils) {
+        this.users = users;
+        this.standardOut = standardOut;
+        this.usersMapper = usersMapper;
+        this.encrypt = encrypt;
+        this.dateUtils = dateUtils;
+    }
 
     /**
      * 用户注册 service 方法
-     * @param userIn
-     * @return
+     * @param userIn 用户信息
+     * @return StandardOut
      */
     @Override
-    public StandardOut signUp(UserIn userIn) {
+    public StandardOut<?> signUp(UserIn userIn) {
         standardOut.set(ErrorCode.SUCCESS);
         if (!checkUserIn(userIn)) {
             return standardOut;
@@ -71,26 +75,26 @@ public class UsersServiceMybatisImpl implements UsersServiceInterface {
         users.setSchool(userIn.getSchool());
 
         try {
-            Integer result = usersMapper.insert(users);
+            int result = usersMapper.insert(users);
             if (0 == result) {
-                standardOut.setCode(result.toString());
+                standardOut.setCode(Integer.toString(result));
                 standardOut.setMessage("插入数据库出错");
             }
         } catch (Exception e) {
             standardOut.set(ErrorCode.SYSTEM_SQL_INSERT_ERROR);
             log.error(e.getLocalizedMessage(), e.fillInStackTrace());
-        } finally {
-            return standardOut;
         }
+        return standardOut;
+
     }
 
     /**
      * 校验输入的注册用户信息
-     * @param userIn
-     * @return
+     * @param userIn 用户信息
+     * @return Boolean
      */
     private Boolean checkUserIn(UserIn userIn) {
-        Boolean result = false;
+        boolean result = false;
         if (userIn.getUserId().length() < 3) {
             standardOut.set(ErrorCode.USER_ID_TOO_SHORT);
         } else if (userIn.getUserId().length() > 12) {
@@ -119,8 +123,8 @@ public class UsersServiceMybatisImpl implements UsersServiceInterface {
 
     /**
      * 校验用户ID是否为有效格式
-     * @param userId
-     * @return
+     * @param userId 用户 ID
+     * @return Boolean
      */
     private Boolean isValidUserId(String userId) {
         String regEx = "[a-zA-Z][a-zA-Z0-9]*";
@@ -131,8 +135,8 @@ public class UsersServiceMybatisImpl implements UsersServiceInterface {
 
     /**
      * 校验用户是否已存在
-     * @param userId
-     * @return
+     * @param userId 用户ID
+     * @return Boolean
      */
     private Boolean checkUserExists(String userId) {
         Users users = usersMapper.selectByPrimaryKey(userId);
@@ -143,7 +147,7 @@ public class UsersServiceMybatisImpl implements UsersServiceInterface {
     }
 
     @Override
-    public StandardOut signIn(String userId, String password) {
+    public StandardOut<?> signIn(String userId, String password) {
         standardOut.set(ErrorCode.SUCCESS);
         Users users = usersMapper.selectByPrimaryKey(userId);
         if (null == users) {
@@ -156,27 +160,27 @@ public class UsersServiceMybatisImpl implements UsersServiceInterface {
     }
 
     @Override
-    public StandardOut signOut(Session session) {
+    public StandardOut<?> signOut(Session session) {
         return null;
     }
 
     @Override
-    public StandardOut getUserInfo(Session session) {
+    public StandardOut<?> getUserInfo(Session session) {
         return null;
     }
 
     @Override
-    public StandardOut modifyUserInfo(UserIn userIn) {
+    public StandardOut<?> modifyUserInfo(UserIn userIn) {
         return null;
     }
 
     @Override
-    public StandardOut modifyPassword(String userId, String oldPassword, String newPassword) {
+    public StandardOut<?> modifyPassword(String userId, String oldPassword, String newPassword) {
         return null;
     }
 
     @Override
-    public StandardOut checkUserSignIn(Session session) {
+    public StandardOut<?> checkUserSignIn(Session session) {
         return null;
     }
 
@@ -184,7 +188,7 @@ public class UsersServiceMybatisImpl implements UsersServiceInterface {
      * 验证密码是否与数据库中的密码一致
      * @param storedPassword 存储在数据库中的密码
      * @param password 要验证的密码
-     * @return
+     * @return Boolean
      */
     private Boolean checkUserPassword(String storedPassword, String password) {
         return false;

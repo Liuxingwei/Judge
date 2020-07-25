@@ -56,8 +56,8 @@ public class UsersServiceMybatisImplTest {
     @Test
     public void signUpWithUserIdTooShort() {
         userIn.setUserId("ab");
-        StandardOut result = usersServiceMybatis.signUp(userIn);
-        StandardOut expectResult = new StandardOut();
+        StandardOut<?> result = usersServiceMybatis.signUp(userIn);
+        StandardOut<?> expectResult = new StandardOut<String>();
         expectResult.set(ErrorCode.USER_ID_TOO_SHORT);
         assertEquals(expectResult, result);
     }
@@ -65,8 +65,8 @@ public class UsersServiceMybatisImplTest {
     @Test
     public void signUpWithUserIdToLong() {
         userIn.setUserId("abcdefghijklm");
-        StandardOut result = usersServiceMybatis.signUp(userIn);
-        StandardOut expectResult = new StandardOut();
+        StandardOut<?> result = usersServiceMybatis.signUp(userIn);
+        StandardOut<String> expectResult = new StandardOut<String>();
         expectResult.set(ErrorCode.USER_ID_TOO_LONG);
         assertEquals(expectResult, result);
     }
@@ -74,8 +74,8 @@ public class UsersServiceMybatisImplTest {
     @Test
     public void signUpWithUserIdInvalid() {
         userIn.setUserId("_abc?kst");
-        StandardOut result = usersServiceMybatis.signUp(userIn);
-        StandardOut expectResult = new StandardOut();
+        StandardOut<?> result = usersServiceMybatis.signUp(userIn);
+        StandardOut<String> expectResult = new StandardOut<String>();
         expectResult.set(ErrorCode.USER_ID_IS_NOT_VALID);
         assertEquals(expectResult, result);
     }
@@ -84,8 +84,8 @@ public class UsersServiceMybatisImplTest {
     public void signUpWithUserNickTooLong() {
         userIn.setUserId("adm");
         userIn.setNick("abcdefghijklm");
-        StandardOut result = usersServiceMybatis.signUp(userIn);
-        StandardOut expectResult = new StandardOut();
+        StandardOut<?> result = usersServiceMybatis.signUp(userIn);
+        StandardOut<String> expectResult = new StandardOut<String>();
         expectResult.set(ErrorCode.USER_NICK_TOO_LONG);
         assertEquals(expectResult, result);
     }
@@ -96,8 +96,8 @@ public class UsersServiceMybatisImplTest {
         userIn.setNick("俺老孙的名字就叫做孙悟空");
         userIn.setPassword("hello");
         userIn.setRePassword("holle");
-        StandardOut result = usersServiceMybatis.signUp(userIn);
-        StandardOut expectResult = new StandardOut();
+        StandardOut<?> result = usersServiceMybatis.signUp(userIn);
+        StandardOut<String> expectResult = new StandardOut<String>();
         expectResult.set(ErrorCode.USER_PASSWORD_IS_NOT_SAME);
         assertEquals(expectResult, result);
     }
@@ -108,8 +108,8 @@ public class UsersServiceMybatisImplTest {
         userIn.setNick("悟空");
         userIn.setPassword("hello");
         userIn.setRePassword("hello");
-        StandardOut result = usersServiceMybatis.signUp(userIn);
-        StandardOut expectResult = new StandardOut();
+        StandardOut<?> result = usersServiceMybatis.signUp(userIn);
+        StandardOut<String> expectResult = new StandardOut<String>();
         expectResult.set(ErrorCode.USER_PASSWORD_TOO_SHORT);
         assertEquals(expectResult, result);
     }
@@ -120,8 +120,8 @@ public class UsersServiceMybatisImplTest {
         userIn.setNick("悟空");
         userIn.setPassword("helloworld1234567");
         userIn.setRePassword("helloworld1234567");
-        StandardOut result = usersServiceMybatis.signUp(userIn);
-        StandardOut expectResult = new StandardOut();
+        StandardOut<?> result = usersServiceMybatis.signUp(userIn);
+        StandardOut<String> expectResult = new StandardOut<String>();
         expectResult.set(ErrorCode.USER_PASSWORD_TOO_LONG);
         assertEquals(expectResult, result);
     }
@@ -133,8 +133,8 @@ public class UsersServiceMybatisImplTest {
         userIn.setPassword("helloworld123456");
         userIn.setRePassword("helloworld123456");
         userIn.setSchool("摘要: 定义函数时为参数指定默认值的能力，是现代动态编程语言的标配。在ES6出现之前，JavaScript是没有这种能力的，框架为了实现参数默认值，用了很多技巧。 ES6 的默认参数值功能，与其他语言的语法类似，但功能更强大。");
-        StandardOut result = usersServiceMybatis.signUp(userIn);
-        StandardOut expectResult = new StandardOut();
+        StandardOut<?> result = usersServiceMybatis.signUp(userIn);
+        StandardOut<String> expectResult = new StandardOut<String>();;
         expectResult.set(ErrorCode.USER_SCHOOL_TOO_LONG);
         assertEquals(expectResult, result);
     }
@@ -147,8 +147,8 @@ public class UsersServiceMybatisImplTest {
         userIn.setRePassword("helloworld");
         userIn.setSchool("dyq0k9kxprkasyzz3n7ldyz14wpgofusrqwv6dwf1o12ehlfvnfnoohowdeea7c7tb4z3gu99n3ie9sqv96nj7z8ov66936io350");
         userIn.setEmail("dyq0k9kxprkasyzz3n7ldyz14wpgofusrqwv6dwf1o12ehlfvnfnoohowdeea7c7tb4z3gu99n3ie9sqv96nj@7z8ov66936i.net");
-        StandardOut result = usersServiceMybatis.signUp(userIn);
-        StandardOut expectResult = new StandardOut();
+        StandardOut<?> result = usersServiceMybatis.signUp(userIn);
+        StandardOut<String> expectResult = new StandardOut<String>();
         expectResult.set(ErrorCode.USER_EMAIL_TOO_LONG);
         assertEquals(expectResult, result);
     }
@@ -161,8 +161,8 @@ public class UsersServiceMybatisImplTest {
         userIn.setRePassword("helloworld");
         userIn.setSchool("dyq");
         userIn.setEmail("dyq@z8ov66936i.net");
-        StandardOut result = usersServiceMybatis.signUp(userIn);
-        StandardOut expectResult = new StandardOut();
+        StandardOut<?> result = usersServiceMybatis.signUp(userIn);
+        StandardOut<String> expectResult = new StandardOut<String>();
         expectResult.set(ErrorCode.USER_ALREADY_EXISTS);
         assertEquals(expectResult, result);
     }
@@ -179,8 +179,8 @@ public class UsersServiceMybatisImplTest {
         userIn.setIp("127.0.0.1");
         userIn.setNick("盘古");
         userIn.setSchool("混沌大学");
-        StandardOut result = usersServiceMybatis.signUp(userIn);
-        StandardOut expectResult = new StandardOut();
+        StandardOut<?> result = usersServiceMybatis.signUp(userIn);
+        StandardOut<String> expectResult = new StandardOut<String>();
         expectResult.set(ErrorCode.SUCCESS);
         assertEquals(expectResult, result);
         Users user = usersMapper.selectByPrimaryKey("admin123");
