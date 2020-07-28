@@ -106,4 +106,43 @@ public class IpUtilTest {
         assertEquals("192.168.1.192", ipUtil.getIpAddr(request));
     }
 
+    @Test
+    public void getEmptyWithXForwardedForAndEmptyWithProxyClientIpAndEmptyWithWLProxyClientIp() throws UnknownHostException {
+        when(request.getHeader("x-forwarded-for")).thenReturn("");
+        when(request.getHeader("Proxy-Client-IP")).thenReturn("");
+        when(request.getHeader("WL-Proxy-Client-IP")).thenReturn("");
+        when(request.getRemoteAddr()).thenReturn("0:0:0:0:0:0:0:1");
+        when(inetAddressUtils.getHostAddress()).thenReturn("192.168.1.192");
+        IpUtil ipUtil = new IpUtil(inetAddressUtils);
+        assertEquals("192.168.1.192", ipUtil.getIpAddr(request));
+    }
+
+    @Test
+    public void getUnknownWithXForwardedForAndUnknownWithProxyClientIpAndUnknownWithWLProxyClientIp() throws UnknownHostException {
+        when(request.getHeader("x-forwarded-for")).thenReturn("unknown");
+        when(request.getHeader("Proxy-Client-IP")).thenReturn("UNKNOWN");
+        when(request.getHeader("WL-Proxy-Client-IP")).thenReturn("UnKnOWn");
+        when(request.getRemoteAddr()).thenReturn("0:0:0:0:0:0:0:1");
+        when(inetAddressUtils.getHostAddress()).thenReturn("192.168.1.192");
+        IpUtil ipUtil = new IpUtil(inetAddressUtils);
+        assertEquals("192.168.1.192", ipUtil.getIpAddr(request));
+    }
+
+    @Test
+    public void getAddressList() throws UnknownHostException {
+        when(request.getHeader("x-forwarded-for")).thenReturn("192.168.1.192,230.7.8.93,189.221.7.98");
+        IpUtil ipUtil = new IpUtil(inetAddressUtils);
+        assertEquals("192.168.1.192", ipUtil.getIpAddr(request));
+    }
+
+    @Test(expected = UnknownHostException.class)
+    public void getThrown() throws UnknownHostException{
+        when(request.getHeader("x-forwarded-for")).thenReturn("unknown");
+        when(request.getHeader("Proxy-Client-IP")).thenReturn("UNKNOWN");
+        when(request.getHeader("WL-Proxy-Client-IP")).thenReturn("UnKnOWn");
+        when(request.getRemoteAddr()).thenReturn("0:0:0:0:0:0:0:1");
+        when(inetAddressUtils.getHostAddress()).thenThrow(UnknownHostException.class);
+        IpUtil ipUtil = new IpUtil(inetAddressUtils);
+        ipUtil.getIpAddr(request);
+    }
 }
